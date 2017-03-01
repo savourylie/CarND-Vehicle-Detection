@@ -55,13 +55,13 @@ The training is rather straight forward. So I won't go into detail of that.
 Here I'll use three examples from the `test_images/` folder to demonstrate how this works.
 
 **test1.jpg**
-![Alt text](./test1.jpg)
+![Alt text](./demo_images/test1.jpg)
 
 **test2.jpg**
-![Alt text](./test2.jpg)
+![Alt text](./demo_images/test2.jpg)
 
 **test5.jpg**
-![Alt text](./test5.jpg)
+![Alt text](./demo_images/test5.jpg)
 
 Here we follow the following steps:
 1. **Define box regions of various sizes**
@@ -72,7 +72,7 @@ Here we follow the following steps:
 ### Define box regions of various sizes
 In this project we only have to cover cars on the lanes to the right of our car. I used the `slide_window()` function in line 1 of `cell [23]` to define the box regions. We can visualize this on the test images as follows:
 
-![Alt text](./test1.png)
+![Alt text](./demo_images/test1.png)
 
 Here various sizes of boxes are chosen, as cars away from our position would appear smaller on the image and larger if there are closer. In the `slide_window()` function I picked five different sizes of windows as follows: 32x32, 48x48, 64x64, 96x96, 128x128 after a few trial and error.
 
@@ -80,13 +80,13 @@ Here various sizes of boxes are chosen, as cars away from our position would app
 Using our trained CNN we can now see which boxes contain a car, and discard the ones without:
 
 **on test1.jpg**
-![Alt text](./hot_win1.png)
+![Alt text](./demo_images/hot_win1.png)
 
 **on test2.jpg**
-![Alt text](./hot_win2.png)
+![Alt text](./demo_images/hot_win2.png)
 
 **on test3.jpg**
-![Alt text](./hot_win3.png)
+![Alt text](./demo_images/hot_win3.png)
 
 As we can see there are quite a few false positives, where there are boxes but no cars. We can handle this by applying a threshold to the number of overlapping boxes in the next step.
 
@@ -94,7 +94,7 @@ As we can see there are quite a few false positives, where there are boxes but n
  We can use the stacked boxes to define a heat map, and the apply a threshold (here' I pick `threshold=3` to eliminate all the false positives).
 
 We can then keep track of the maximum/minimum (x, y) coordinates of all the disconnected regions and redefine new rectangles that contain the cars. And here are the results:
-![Alt text](./heat_filter.png)
+![Alt text](./demo_images/heat_filter.png)
 
 We can now see  all the false positives are gone and the boxes look fine and dandy!
 
